@@ -227,10 +227,6 @@ def plot_worst_5_drawdown_periods(returns, title):
     drawdown_periods = (
         qs.stats.drawdown_details(datas).sort_values(by="max drawdown").head(5)
     )
-    # drawdown_periods = (
-    #     qs.stats.drawdown_details(returns).sort_values(by="max drawdown").head(5)
-    # )
-    # print(qs.stats.to_drawdown_series(returns).sort_values('max drawdown')[:5], '#')
     cumulative_returns = (returns + 1).cumprod() - 1
     ax.plot(
         cumulative_returns.index,
@@ -346,14 +342,7 @@ for strategy, returns in strategies_data.items():
 summary_df = summary_df.applymap(
     lambda x: format_percent(x) if isinstance(x, float) else x
 )
-# combined_df = combined_df.applymap(
-#     lambda x:format_percent(x) if isinstance(x, float) else x
-# )
-# Convert DataFrames to HTML
 html_summary_table = summary_df.to_html(classes="table table-striped", border=0)
-
-#Excess Return Stats DataFrames by Episode
-# combined_df = excess_return_df.to_html(classes="table table-striped, border=0")
 
 # Custom HTML template
 file_path = 'input.xlsx'
